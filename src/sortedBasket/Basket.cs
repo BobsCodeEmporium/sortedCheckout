@@ -12,5 +12,17 @@ namespace sortedBasket
             internalBasket.Add(item);
             return true;
         }
+
+        public object Total()
+        {
+            var total = 0m;
+
+            foreach (var item in internalBasket)
+            {
+                total += item.UnitPrice;
+            }
+
+            return total;
+        }
     }
 }
