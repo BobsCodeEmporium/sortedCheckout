@@ -22,7 +22,15 @@ namespace sortedBasketTest
         [Fact]
         public void WhenATotalIsRequestedItIsReturned()
         {
+            //Arrange
+            var basket = new sortedBasket.Basket();
+            basket.Scan(new sortedBasket.Item { Sku = "A99", UnitPrice = 0.5m });
 
+            //Act
+            var total = basket.Total();
+
+            //Assert
+            Assert.Equal(0.5m, total);
         }
 
         [Fact]
