@@ -5,15 +5,19 @@ namespace sortedBasketTest
 {
     public class basketTests
     {
+        private readonly sortedBasket.Item _biscuits = new sortedBasket.Item { Sku = "B15", UnitPrice = 0.3m };
+        private readonly sortedBasket.Item _apple = new sortedBasket.Item { Sku = "B15", UnitPrice = 0.5m };
+        private readonly sortedBasket.Item _banana = new sortedBasket.Item { Sku = "B15", UnitPrice = 0.6m };
+
+
         [Fact]
         public void WhenAnItemIsScannedItIsAddedToTheBasket()
         {
             //Arrange
             var basket = new sortedBasket.Basket();
-            var item = new sortedBasket.Item { Sku = "A99", UnitPrice = 0.5m };
-
+            
             //Act
-            var status = basket.Scan(item);
+            var status = basket.Scan(_apple);
 
             //Assert
             Assert.True(status);
@@ -24,7 +28,7 @@ namespace sortedBasketTest
         {
             //Arrange
             var basket = new sortedBasket.Basket();
-            basket.Scan(new sortedBasket.Item { Sku = "A99", UnitPrice = 0.5m });
+            basket.Scan(_apple);
 
             //Act
             var total = basket.Total();
@@ -36,7 +40,17 @@ namespace sortedBasketTest
         [Fact]
         public void WhenAnOfferIsAvailableItIsApplied()
         {
+            //Arrange
+            var basket = new sortedBasket.Basket();
 
+            //Act
+            basket.Scan(_biscuits);
+            basket.Scan(_biscuits);
+
+            var total = basket.Total();
+
+            //Assert
+            Assert.Equal(.45m, total);
         }
     }
 }
